@@ -203,6 +203,16 @@ footer span { font-weight: bold; }
         <option>Complete</option>
       </select>
     </label>
+        <label>Complain Type:
+      <select id="typeFilter">
+        <option value="">সব</option>
+        <option>ইন্টারনেট সংযোগ স্লো</option>
+        <option>ইন্টারনেট সংযোগ নেই</option>
+        <option>নেটওয়ার্ক ইকুইপমেণ্ট (Wifi রাউটার/ONU/পাওয়ার ক্যাবল) নষ্ট</option>
+        <option>নেটওয়ার্ক ইকুইপমেণ্ট (Wifi রাউটার/ONU/পাওয়ার ক্যাবল) চুরি হয়েছে</option>
+              
+      </select>
+    </label>
 
     <button id="exportPDF">Export PDF</button>
     <button id="exportXLS">Export XLS</button>
@@ -230,7 +240,18 @@ footer span { font-weight: bold; }
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbyedHMHbVetQEfLnRgivRgN95LmHv8JGlbgRtCS8-ZUbbsA5tm67FjLlQ1dhyW1TT7X/exec";
-const allowedAdmins = [{ email: "mamun.eceku@gmail.com", password: "doict#2021" }];
+const allowedAdmins = [{ email: "mamun.eceku@gmail.com", password: "doict#2021" },
+  { email: "habib.rahman@link3.net", password: "link3#2021" },
+  { email: "abdulkarim13@gmail.com", password: "doict#2021" },
+  { email: "shuvendu.halder@gmail.com", password: "doict#2021" },
+  { email: "prolath38@gmail.com", password: "doict#2021" },
+  { email: "ohidulice@gmail.com", password: "doict#2021" },
+  { email: "ashraful.ru421@gmail.com", password: "doict#2021" },
+  { email: "raju.doict@gmail.com", password: "doict#2021" },
+  { email: "ahasanskabir@gmail.com", password: "doict#2021" },
+  { email: "tutulbiswas@yahoo.com", password: "doict#2021" },
+  { email: "doict.jashore@gmail.com", password: "doict#2021" }
+];
 let table;
 
 // ✅ Login Handling
@@ -303,13 +324,14 @@ async function updateStatus(rowIndex, newStatus, selectEl){
 }
 
 // ✅ Filters
-$('#upazilaFilter, #statusFilter').on('change', function(){
+$('#upazilaFilter, #statusFilter,#typeFilter').on('change', function(){
   const upazila = $('#upazilaFilter').val();
   const status = $('#statusFilter').val();
+  const type = $('#typeFilter').val();
   $.fn.dataTable.ext.search = [];
   $.fn.dataTable.ext.search.push(function(settings,data,dataIndex){
     const row = table.row(dataIndex).data();
-    return (!upazila || row.upazila===upazila) && (!status || row.CompletionStatus===status);
+    return (!upazila || row.upazila===upazila) && (!status || row.CompletionStatus===status)&&(!type||row.type==type);
   });
   table.draw();
 });
