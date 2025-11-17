@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<title>EDC complain Admin Pannel</title>
+<title>EDC Complain Admin Panel</title>
 <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -22,164 +22,35 @@ button:hover { background: #0056b3; }
 .status-green { color: white; background: #28a745; font-weight: bold; border-radius: 5px; padding: 2px 5px; }
 .status-orange { color: white; background: #fd7e14; font-weight: bold; border-radius: 5px; padding: 2px 5px; }
 
-#loginBox { max-width: 350px; margin: 100px auto; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; }
+textarea { width:100%; min-height:40px; max-height:200px; resize:vertical; padding:5px; font-size:13px; box-sizing:border-box; }
+
+#complaintsTable td, #complaintsTable th { word-wrap:break-word; overflow-wrap:break-word; }
+
+#loginBox { max-width: 350px; margin: 100px auto; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align:center; }
 #loginBox h3 { margin-bottom: 15px; }
 #logoutBtn { background: #dc3545; color: white; margin-left: 10px; }
 #logoutBtn:hover { background: #b02a37; }
 
-
-/* ✅ Fix “বিবরণ” column width and text wrapping */
-/* ✅ Fix all column widths to prevent stretching */
-#complaintsTable {
-  table-layout: fixed;
-  width: 100%;
-}
-
-#complaintsTable th,
-#complaintsTable td {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-table {
-  font-size: 12px; /* চাইলে 10px বা 11px করতে পারেন */
-}
-
-/* শুধু table body-এর text ছোট করতে */
-table tbody td {
-  font-size: 13px;
-}
-
-/* শুধু table head-এর text ছোট করতে */
-table thead th {
-  font-size: 14px;
-}
-
-/* Optional: adjust widths per column */
-#complaintsTable th:nth-child(1), #complaintsTable td:nth-child(1) { width: 90px; }   /* তারিখ */
-#complaintsTable th:nth-child(2), #complaintsTable td:nth-child(2) { width: 90px; }  /* উপজেলা */
-#complaintsTable th:nth-child(3), #complaintsTable td:nth-child(3) { width: 90px; }  /* ইউনিয়ন */
-#complaintsTable th:nth-child(4), #complaintsTable td:nth-child(4) {   width: 250px;
-  white-space: normal !important;
-  word-wrap: break-word;
-  overflow-wrap: break-word; }  /* প্রতিষ্ঠান */
-#complaintsTable th:nth-child(5), #complaintsTable td:nth-child(5) { width: 120px; }  /* মোবাইল */
-#complaintsTable th:nth-child(6), #complaintsTable td:nth-child(6) { width: 90px; }  /* কানেকশন নম্বর */
-#complaintsTable th:nth-child(7), #complaintsTable td:nth-child(7) {   width: 250px;
-  white-space: normal !important;
-  word-wrap: break-word;
-  overflow-wrap: break-word; }  /* ধরণ */
-#complaintsTable th:nth-child(8), #complaintsTable td:nth-child(8) {
-  width: 250px;
-  white-space: normal !important;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-#complaintsTable th:nth-child(9), #complaintsTable td:nth-child(9) { width: 130px; }  /* Completion */
-
-
-#complaintsTable td:nth-child(8),
-#complaintsTable th:nth-child(8) {
-  width: 250px;                /* fixed width */
-  white-space: normal !important; /* allow line wrapping */
-  word-wrap: break-word;       /* break long words */
-  overflow-wrap: break-word;   /* cross-browser wrapping */
-  text-align: left;
-  vertical-align: top;         /* grow vertically */
-}
-
-table.dataTable th,
-table.dataTable td {
-  max-width: 150px;  /* fixed width — adjust as needed */
-  width: 150px;      /* same fixed width */
-  white-space: nowrap; 
-  overflow: hidden;
-  text-overflow: ellipsis; /* adds "..." when text is too long */
-}
-
-table.dataTable {
-  table-layout: fixed; /* this is the key */
-  width: 100% !important;
-}
-
-/* Mobile responsive card style */
-@media (max-width: 768px) {
-  table#complaintsTable,
-  table#complaintsTable thead,
-  table#complaintsTable tbody,
-  table#complaintsTable th,
-  table#complaintsTable td,
-  table#complaintsTable tr { display: block; }
-
-  table#complaintsTable thead tr { display: none; }
-
-  table#complaintsTable tr {
-    background: #fff;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-  }
-
-  table#complaintsTable td {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-    border: none;
-    border-bottom: 1px solid #eee;
-    flex-wrap: wrap;
-  }
-
-  table#complaintsTable td:last-child { border-bottom: 0; }
-
-  table#complaintsTable td:before {
-    content: attr(data-label);
-    font-weight: bold;
-    flex-basis: 50%;
-    text-align: left;
-    margin-bottom: 3px;
-  }
-
-  table#complaintsTable td select { flex-basis: 45%; padding: 4px; border-radius:5px; }
-
-  /* ✅ Mobile version “বিবরণ” wrapping */
-  #complaintsTable td[data-label="বিবরণ"] {
-    white-space: normal !important;
-    word-wrap: break-word;
-  }
-}
-
-/* Footer Style */
-footer {
-  background: #0d6efd;
-  color: white;
-  text-align: center;
-  padding: 10px 5px;
-  font-size: 15px;
-  margin-top: auto;
-  border-top: 2px solid #084298;
-}
+footer { background: #0d6efd; color: white; text-align: center; padding: 10px 5px; font-size: 15px; margin-top: 20px; border-top: 2px solid #084298; }
 footer span { font-weight: bold; }
+
 </style>
 </head>
 <body>
 
-
 <!-- 🔐 Login Box -->
 <div id="loginBox" style="display:none;">
   <h3>🔐 Admin Login</h3>
-  <p>অনুমোদিত ইমেইল ও পাসওয়ার্ড দিন</p>
-  <input type="email" id="emailInput" placeholder="Enter your email" class="form-control mb-2">
-  <input type="password" id="passwordInput" placeholder="Enter your password" class="form-control mb-2">
+  <input type="email" id="emailInput" placeholder="Email" class="form-control mb-2">
+  <input type="password" id="passwordInput" placeholder="Password" class="form-control mb-2">
   <button id="loginBtn">Login</button>
-  <p id="loginError" style="color:red; display:none;">❌ ভুল ইমেইল বা পাসওয়ার্ড</p>
+  <p id="loginError" style="color:red; display:none;">❌ Invalid login</p>
 </div>
 
 <!-- 📋 Admin Panel -->
 <div id="adminPanel" style="display:none;">
   <h2>📋 EDC Connection Complain Tracking System</h2>
-
+  
   <div class="filters">
     <label>উপজেলা:
       <select id="upazilaFilter">
@@ -195,7 +66,7 @@ footer span { font-weight: bold; }
       </select>
     </label>
 
-    <label>Completion Status:
+    <label>Status:
       <select id="statusFilter">
         <option value="">সব</option>
         <option>Incomplete</option>
@@ -203,14 +74,14 @@ footer span { font-weight: bold; }
         <option>Complete</option>
       </select>
     </label>
-        <label>Complain Type:
+
+    <label>Complain Type:
       <select id="typeFilter">
         <option value="">সব</option>
         <option>ইন্টারনেট সংযোগ স্লো</option>
         <option>ইন্টারনেট সংযোগ নেই</option>
         <option>নেটওয়ার্ক ইকুইপমেণ্ট (Wifi রাউটার/ONU/পাওয়ার ক্যাবল) নষ্ট</option>
         <option>নেটওয়ার্ক ইকুইপমেণ্ট (Wifi রাউটার/ONU/পাওয়ার ক্যাবল) চুরি হয়েছে</option>
-              
       </select>
     </label>
 
@@ -224,114 +95,121 @@ footer span { font-weight: bold; }
       <tr>
         <th>তারিখ</th>
         <th>উপজেলা</th>
-        <th>ইউনিয়ন/পৌরসভা</th>
+        <th>ইউনিয়ন</th>
         <th>প্রতিষ্ঠান</th>
         <th>মোবাইল</th>
         <th>কানেকশন নম্বর</th>
         <th>ধরণ</th>
         <th>বিবরণ</th>
         <th>Completion Status</th>
+        <th>Comment</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
 </div>
 
+<footer>
+  <span>Developed by: Department of ICT</span> | District Office, Jashore | <span>Information and Communication Technology Division</span>
+</footer>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbyedHMHbVetQEfLnRgivRgN95LmHv8JGlbgRtCS8-ZUbbsA5tm67FjLlQ1dhyW1TT7X/exec";
-const allowedAdmins = [{ email: "mamun.eceku@gmail.com", password: "doict#2021" },
-  { email: "habib.rahman@link3.net", password: "link3#2021" },
-  { email: "abdulkarim13@gmail.com", password: "doict#2021" },
-  { email: "shuvendu.halder@gmail.com", password: "doict#2021" },
-  { email: "prolath38@gmail.com", password: "doict#2021" },
-  { email: "ohidulice@gmail.com", password: "doict#2021" },
-  { email: "ashraful.ru421@gmail.com", password: "doict#2021" },
-  { email: "raju.doict@gmail.com", password: "doict#2021" },
-  { email: "ahasanskabir@gmail.com", password: "doict#2021" },
-  { email: "tutulbiswas@yahoo.com", password: "doict#2021" },
-  { email: "doict.jashore@gmail.com", password: "doict#2021" }
-];
+const API = "https://script.google.com/macros/s/AKfycbyYnIOd1_M-P7U2rBinNajNwYYEOR8UQJKstw5bFHsBzRh9vMuJAtv3zq9eyY4iUmktDw/exec"; // Change to your Google Apps Script URL
+const allowedAdmins = [{email:"mamun.eceku@gmail.com",password:"doict#2021"}];
 let table;
 
-// ✅ Login Handling
-function checkLogin() {
+// ✅ Login
+function checkLogin(){
   const savedEmail = localStorage.getItem("adminEmail");
   const savedPass = localStorage.getItem("adminPass");
-  const isValid = allowedAdmins.some(a => a.email.toLowerCase() === savedEmail && a.password === savedPass);
-  if (isValid) { $("#loginBox").hide(); $("#adminPanel").show(); loadData(); }
-  else { $("#loginBox").show(); $("#adminPanel").hide(); }
+  const isValid = allowedAdmins.some(a=>a.email===savedEmail && a.password===savedPass);
+  if(isValid){ $("#loginBox").hide(); $("#adminPanel").show(); loadData(); }
+  else{ $("#loginBox").show(); $("#adminPanel").hide(); }
 }
 
-$("#loginBtn").click(() => {
-  const email = $("#emailInput").val().trim().toLowerCase();
+$("#loginBtn").click(()=>{
+  const email = $("#emailInput").val().trim();
   const pass = $("#passwordInput").val().trim();
-  const match = allowedAdmins.find(a => a.email.toLowerCase() === email && a.password === pass);
+  const match = allowedAdmins.find(a=>a.email===email && a.password===pass);
   if(match){ localStorage.setItem("adminEmail",email); localStorage.setItem("adminPass",pass); $("#loginError").hide(); checkLogin(); }
-  else { $("#loginError").show(); }
+  else{ $("#loginError").show(); }
 });
 
 $("#logoutBtn").click(()=>{ localStorage.removeItem("adminEmail"); localStorage.removeItem("adminPass"); location.reload(); });
 
-// ✅ Load Data
-async function loadData() {
+// ✅ Load data
+async function loadData(){
   const res = await fetch(API);
   const data = await res.json();
-  data.forEach(item => { if(item.Timestamp) item.Timestamp = new Date(item.Timestamp).toLocaleDateString('bn-BD'); });
-
+  data.forEach(item=>{ if(item.Timestamp) item.Timestamp=new Date(item.Timestamp).toLocaleDateString('bn-BD'); });
+  
   if(table){ table.clear().rows.add(data).draw(); }
   else {
-    table = new DataTable('#complaintsTable', {
-      data: data,
-      columns: [
-        { data:'Timestamp', render:d=>`<td data-label="তারিখ">${d}</td>` },
-        { data:'upazila', render:d=>`<td data-label="উপজেলা">${d}</td>` },
-        { data:'union', render:d=>`<td data-label="ইউনিয়ন/পৌরসভা">${d}</td>` },
-        { data:'orgName', render:d=>`<td data-label="প্রতিষ্ঠান">${d}</td>` },
-        { data:'phone', render:d=>`<td data-label="মোবাইল">${d}</td>` },
-        { data:'connection', render:d=>`<td data-label="কানেকশন নম্বর">${d}</td>` },
-        { data:'type', render:d=>`<td data-label="ধরণ">${d}</td>` },
-        { data:'details', render:d=>`<td data-label="বিবরণ" style="white-space:normal;word-wrap:break-word;">${d}</td>` },
+    table = new DataTable('#complaintsTable',{
+      data:data,
+      columns:[
+        { data:'Timestamp' },
+        { data:'upazila' },
+        { data:'union' },
+        { data:'orgName' },
+        { data:'phone' },
+        { data:'connection' },
+        { data:'type' },
+        { data:'details', render:d=>`<td>${d}</td>` },
         { data:'CompletionStatus',
           render:(status,type,row)=>{
             let colorClass = status==='Incomplete'?'status-red':status==='Ongoing'?'status-orange':'status-green';
-            return `<td data-label="Completion Status">
-              <select class="${colorClass}" onchange="updateStatus(${row.rowIndex}, this.value, this)">
-                <option value="Incomplete" ${status==='Incomplete'?'selected':''}>Incomplete</option>
-                <option value="Ongoing" ${status==='Ongoing'?'selected':''}>Ongoing</option>
-                <option value="Complete" ${status==='Complete'?'selected':''}>Complete</option>
-              </select>
-            </td>`;
+            return `<td><select class="${colorClass}" onchange="updateStatus(${row.rowIndex}, this)">
+              <option value="Incomplete" ${status==='Incomplete'?'selected':''}>Incomplete</option>
+              <option value="Ongoing" ${status==='Ongoing'?'selected':''}>Ongoing</option>
+              <option value="Complete" ${status==='Complete'?'selected':''}>Complete</option>
+            </select></td>`;
           }
+        },
+        { data:'comment',
+          render:(comment,type,row)=>`<td><textarea maxlength="200" oninput="autoResize(this)" onblur="updateComment(${row.rowIndex}, this.value)">${comment||''}</textarea></td>`
         }
       ]
     });
   }
 }
 
-// ✅ Update Completion Status
-async function updateStatus(rowIndex, newStatus, selectEl){
-  let colorClass = newStatus==='Incomplete'?'status-red':newStatus==='Ongoing'?'status-orange':'status-green';
-  selectEl.className = colorClass;
+// ✅ Auto resize textarea
+function autoResize(el){ el.style.height='auto'; el.style.height=(el.scrollHeight)+'px'; }
 
+// ✅ Update Status
+async function updateStatus(rowIndex, selectEl){
+  const newStatus = selectEl.value;
+  let colorClass = newStatus==='Incomplete'?'status-red':newStatus==='Ongoing'?'status-orange':'status-green';
+  selectEl.className=colorClass;
   try {
     const res = await fetch(API,{ method:"POST", body: JSON.stringify({action:"update", rowIndex, CompletionStatus:newStatus}) });
-    const result = await res.text();
-    if(result!=="Updated Successfully") alert("Backend update failed!");
-    const rowData = table.rows().data().toArray().find(r=>r.rowIndex===rowIndex);
-    if(rowData){ rowData.CompletionStatus = newStatus; table.rows().invalidate().draw(false); }
-  } catch(err){ alert("Error updating backend!"); console.error(err);}
+    const result = await res.json();
+    if(!result.success) alert("⚠️ Backend update failed!");
+  } catch(err){ alert("⚠️ Error updating backend!"); console.error(err);}
 }
 
-// ✅ Filters
-$('#upazilaFilter, #statusFilter,#typeFilter').on('change', function(){
+// ✅ Update Comment
+async function updateComment(rowIndex, comment){
+  try {
+    const res = await fetch(API,{ method:"POST", body: JSON.stringify({action:"updateComment", rowIndex, comment}) });
+    const result = await res.json();
+    if(!result.success) alert("⚠️ Backend comment update failed!");
+  } catch(err){ alert("⚠️ Error updating comment!"); console.error(err);}
+}
+
+// ✅ Three filter handling
+$('#upazilaFilter, #statusFilter, #typeFilter').on('change', function(){
   const upazila = $('#upazilaFilter').val();
   const status = $('#statusFilter').val();
   const type = $('#typeFilter').val();
+
   $.fn.dataTable.ext.search = [];
   $.fn.dataTable.ext.search.push(function(settings,data,dataIndex){
     const row = table.row(dataIndex).data();
-    return (!upazila || row.upazila===upazila) && (!status || row.CompletionStatus===status)&&(!type||row.type==type);
+    return (!upazila || row.upazila===upazila) &&
+           (!status || row.CompletionStatus===status) &&
+           (!type || row.type===type);
   });
   table.draw();
 });
@@ -342,9 +220,9 @@ $('#exportPDF').click(function(){
   
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF('l','pt','a4');
-  const head = [['তারিখ','উপজেলা','ইউনিয়ন/পৌরসভা','প্রতিষ্ঠান','মোবাইল','কানেকশন নম্বর','ধরণ','বিবরণ','Completion Status']];
+  const head = [['তারিখ','উপজেলা','ইউনিয়ন','প্রতিষ্ঠান','মোবাইল','কানেকশন নম্বর','ধরণ','বিবরণ','Completion Status','Comment']];
   const body = table.rows({ search: 'applied' }).data().toArray().map(r=>[
-    r.Timestamp,r.upazila,r.union,r.orgName,r.phone,r.connection,r.type,r.details,r.CompletionStatus
+    r.Timestamp,r.upazila,r.union,r.orgName,r.phone,r.connection,r.type,r.details,r.CompletionStatus,r.comment||''
   ]);
 
   doc.autoTable({ head, body, startY:20, styles:{ fontSize:8, cellWidth:'wrap' } });
@@ -355,28 +233,19 @@ $('#exportPDF').click(function(){
 // ✅ Export XLS
 $('#exportXLS').click(function(){
   if(!table || table.rows().count()===0){ alert("⚠️ কোন তথ্য পাওয়া যায়নি XLS Export করার জন্য।"); return; }
-
   const rows = table.rows({ search: 'applied' }).data().toArray();
   let xlsContent = `<table border="1"><tr>
-    <th>তারিখ</th><th>উপজেলা</th><th>ইউনিয়ন/পৌরসভা</th><th>প্রতিষ্ঠান</th>
-    <th>মোবাইল</th><th>কানেকশন নম্বর</th><th>ধরণ</th><th>বিবরণ</th><th>Completion Status</th>
+    <th>তারিখ</th><th>উপজেলা</th><th>ইউনিয়ন</th><th>প্রতিষ্ঠান</th><th>মোবাইল</th>
+    <th>কানেকশন নম্বর</th><th>ধরণ</th><th>বিবরণ</th><th>Completion Status</th><th>Comment</th>
   </tr>`;
-
   rows.forEach(r=>{
     xlsContent += `<tr>
-      <td>${r.Timestamp}</td>
-      <td>${r.upazila}</td>
-      <td>${r.union}</td>
-      <td>${r.orgName}</td>
-      <td>${r.phone}</td>
-      <td>${r.connection}</td>
-      <td>${r.type}</td>
-      <td>${r.details}</td>
-      <td>${r.CompletionStatus}</td>
+      <td>${r.Timestamp}</td><td>${r.upazila}</td><td>${r.union}</td><td>${r.orgName}</td>
+      <td>${r.phone}</td><td>${r.connection}</td><td>${r.type}</td><td>${r.details}</td>
+      <td>${r.CompletionStatus}</td><td>${r.comment||''}</td>
     </tr>`;
   });
   xlsContent += `</table>`;
-
   const blob = new Blob([xlsContent], { type: "application/vnd.ms-excel" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -389,12 +258,7 @@ $('#exportXLS').click(function(){
   alert("✅ XLS সফলভাবে Export হয়েছে!");
 });
 
-// Auto reload
-setInterval(() => loadData(), 300);
 checkLogin();
 </script>
-  <footer>
-    <span>Developed by: Department of ICT </span>|District Office, Jashore| <span> |Information and Communication Technology Division| </span>
-  </footer>
 </body>
 </html>
